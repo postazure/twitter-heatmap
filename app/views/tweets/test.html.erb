@@ -1,2 +1,7 @@
 <h1>Test Results:</h1>
-<h4> <%= @testoutput %> </h4>
+
+<ul>
+<% @testoutput.each do |tweet| %>
+  <li><%= tweet %></li>
+<% end %>
+</ul>
