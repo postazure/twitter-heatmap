@@ -33,6 +33,9 @@ GEM
     arel (5.0.1.20140414130214)
     buftok (0.2.0)
     builder (3.2.2)
+    dotenv (1.0.2)
+    dotenv-rails (1.0.2)
+      dotenv (= 1.0.2)
     equalizer (0.0.9)
     erubis (2.7.0)
     faraday (0.9.1)
@@ -113,6 +116,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.9.3)
+  dotenv-rails
   jbuilder (~> 2.0)
   pg
   rack-cors (~> 0.3.1)
