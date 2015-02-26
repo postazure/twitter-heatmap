@@ -8,31 +8,67 @@
 
 tweets = [
   {
-    hashtag: "#helloworld",
     text: "This is a test tweet",
     username: "maxx"
   },
   {
-    hashtag: "#helloworld",
     text: "Also a test tweet",
     username: "post"
   },
   {
-    hashtag: "#techstuff",
     text: "That stuff is stuff, you know?",
     username: "post"
   },
   {
-    hashtag: "#apple",
     text: "Apple-Py, Go code!!!",
     username: "theguru"
   },
   {
-    hashtag: "#dogs",
     text: "Saw a dog, and another... and another.",
     username: "acat"
   },
+]
 
+hashtags = [
+  {
+    text: "#helloworld",
+    count: 2
+  },
+    {
+    text: "#techstuff",
+    count: 1
+  },
+    {
+    text: "#apple",
+    count: 1
+  },
+    {
+    text: "#dogs",
+    count: 1
+  },
+]
+
+hashtags_and_tweets = [
+  {
+    hashtag_id: 1,
+    tweet_id: 1
+  },
+  {
+    hashtag_id: 1,
+    tweet_id: 2
+  },
+  {
+    hashtag_id: 2,
+    tweet_id: 3
+  },
+  {
+    hashtag_id: 3,
+    tweet_id: 4
+  },
+  {
+    hashtag_id: 4,
+    tweet_id: 5
+  },
 ]
 
 tweets.each do |tweet|
@@ -43,4 +79,13 @@ tweets.each do |tweet|
   hash = tweet.merge(coords)
   Tweet.create(hash)
 end
+
+hashtags.each do |hashtag|
+  Hashtag.create(hashtag)
+end
+
+hashtags_and_tweets.each do |connection|
+  HashtagAndTweet.create(connection)
+end
+
 

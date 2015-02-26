@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tweets
+  resources :tweets, :hashtags
 
   get "/test" => "tweets#test"
   # The priority is based upon order of creation: first created -> highest priority.
