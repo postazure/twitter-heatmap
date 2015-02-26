@@ -8,7 +8,7 @@ namespace :tweets do
     lat = 37.7749300
     lng = -122.4194200
     radius = 5 #in miles
-    result_count = 20
+    result_count = 200
 
     # Get All The Tweets
     $twitter.search("#",{geocode:"#{lat},#{lng},#{radius}mi"}).take(result_count).collect do |tweet| 
