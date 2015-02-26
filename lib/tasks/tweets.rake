@@ -37,26 +37,27 @@ namespace :tweets do
         text:     tweet[:text],
         username: tweet[:username]
       })
-      new_tweet.save
+      if new_tweet.save
 
-      # Save HashTags
-      tweet[:hashtag].each do |hashtag|
-        existing_hashtag = Hashtag.find_by(text: hashtag)
+        # Save HashTags
+        tweet[:hashtag].each do |hashtag|
+          existing_hashtag = Hashtag.find_by(text: hashtag)
 
-        if existing_hashtag
-          new_count = existing_hashtag.count + 1
-          existing_hashtag.update({count: new_count})
-        else
-          new_hashtag = Hashtag.new({text: hashtag, count: 1})
-          new_hashtag.save   
+          if existing_hashtag
+            new_count = existing_hashtag.count + 1
+            existing_hashtag.update({count: new_count})
+          else
+            new_hashtag = Hashtag.new({text: hashtag, count: 1})
+            new_hashtag.save   
+          end
+
+          # Save Hashtag <-> Tweet Association
+          HashtagAndTweet.create({
+            hashtag_id: ( existing_hashtag ? existing_hashtag.id : new_hashtag.id ), 
+            tweet_id: new_tweet.id
+          })
+
         end
-
-        # Save Hashtag <-> Tweet Association
-        HashtagAndTweet.create({
-          hashtag_id: ( existing_hashtag ? existing_hashtag.id : new_hashtag.id ), 
-          tweet_id: new_tweet.id
-        })
-
       end
     end
   end
