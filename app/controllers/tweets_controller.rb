@@ -86,7 +86,7 @@ class TweetsController < ApplicationController
       tweets.each do |tweet|
         tweet_ids << tweet.id
       end
-      hashtag_json["hashtags"] = tweet_ids
+      hashtag_json["tweets"] = tweet_ids
       
       serialized_hashtags << hashtag_json
     end
