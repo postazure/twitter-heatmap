@@ -3,7 +3,7 @@ namespace :tweets do
 
   task get_tweets: :environment do
     tweets = []
-    
+
     # Search Options
     lat = 37.7749300
     lng = -122.4194200
@@ -11,7 +11,7 @@ namespace :tweets do
     result_count = 200
 
     # Get All The Tweets
-    $twitter.search("#",{geocode:"#{lat},#{lng},#{radius}mi"}).take(result_count).collect do |tweet| 
+    $twitter.search("#",{geocode:"#{lat},#{lng},#{radius}mi"}).take(result_count).collect do |tweet|
       hashtags = []
 
       unless tweet.hashtags.empty?
@@ -48,12 +48,12 @@ namespace :tweets do
             existing_hashtag.update({count: new_count})
           else
             new_hashtag = Hashtag.new({text: hashtag, count: 1})
-            new_hashtag.save   
+            new_hashtag.save
           end
 
           # Save Hashtag <-> Tweet Association
           HashtagAndTweet.create({
-            hashtag_id: ( existing_hashtag ? existing_hashtag.id : new_hashtag.id ), 
+            hashtag_id: ( existing_hashtag ? existing_hashtag.id : new_hashtag.id ),
             tweet_id: new_tweet.id
           })
 
