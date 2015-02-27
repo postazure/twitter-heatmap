@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   def index
-    tweets = Tweet.last(300)
+    tweets = Tweet.last(100)
     hashtags = tweets.map {|tweet| tweet.hashtags}.flatten
 
     serialized_tweets = serialize_tweets(tweets)
