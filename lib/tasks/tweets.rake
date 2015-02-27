@@ -1,8 +1,20 @@
 namespace :tweets do
-  desc "collects tweets and saves to database"
+  desc "remove_tweets: deletes tweets over 6 hrs old"
 
+  task remove_tweets: :environment do 
+    hours_old = 4
+
+    destroy_count = 0
+    Tweet.where('created_at < ?', hours_old.minutes.ago).each do |tweet|
+      destroy_count += 1 if tweet.destroy
+    end
+    puts "[TWEET] Removed #{destroy_count} Tweet records. Tweets in DB #{Tweet.all.count}"
+  end
+
+  desc "get_tweets:collects tweets remove_tweets"
   task get_tweets: :environment do
     tweets = []
+    new_tweet_count = 0
 
     # Search Options
     lat = 37.7749300
@@ -12,7 +24,7 @@ namespace :tweets do
 
     # Get All The Tweets
     $twitter.search("#",{geocode:"#{lat},#{lng},#{radius}mi"}).take(result_count).collect do |tweet|
-      hashtags = []
+      hashtags = []  
 
       unless tweet.hashtags.empty?
         tweet.hashtags.each do |hashtag|
@@ -38,6 +50,7 @@ namespace :tweets do
         username: tweet[:username]
       })
       if new_tweet.save
+        new_tweet_count += 1
 
         # Save HashTags
         tweet[:hashtag].each do |hashtag|
@@ -60,5 +73,6 @@ namespace :tweets do
         end
       end
     end
+    puts "[TWEET] Added #{new_tweet_count} Tweet records. Tweets in DB #{Tweet.all.count}"
   end
 end
