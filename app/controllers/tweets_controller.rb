@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
   def index
-    tweets = Tweet.all
-    hashtags = Hashtag.all
+    tweets = Tweet.last(500)
+    hashtags = Hashtag.last(500)
 
     serialized_tweets = serialize_tweets(tweets)
     serialized_hashtags = serialize_hashtags(hashtags)
