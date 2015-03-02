@@ -2,7 +2,7 @@ namespace :tweets do
   desc "remove_tweets: deletes tweets over 6 hrs old"
 
   task remove_tweets: :environment do 
-    hours_old = 6
+    hours_old = 4
 
     destroy_count = 0
     Tweet.where('created_at < ?', hours_old.hours.ago).each do |tweet|
